@@ -25,11 +25,12 @@
                 %>
                 <a class="navbarTxt" href="register.jsp">Register</a>
                 <a class="navbarTxt" href="login.jsp">Login</a>
-                }
+                <%  //}
+                    %>
             </div>
         </div>
+                <div class="filler1"></div>
         <div class="second">
-
             <%
                 if (request.getParameter("email") == null) {
             %>
@@ -37,31 +38,31 @@
                 <form action="register.jsp" method="post">
                     <table>
                         <tr>
-                            <td>Username</td>
+                            <td><p class="p1">Username</p></td>
                             <td><input type="text" name="username"></td>
                         </tr>
                         <tr>
-                            <td>Email</td>
+                            <td><p class="p1">Email</p></td>
                             <td><input type="text" name="email"></td>
                         </tr>
                         <tr>
-                            <td>Full name</td>
+                            <td><p class="p1">Full name</p></td>
                             <td><input type="text" name="name"></td>
                         </tr>
                         <tr>
-                            <td>Password</td>
+                            <td><p class="p1">Password</p></td>
                             <td><input type="password" name="password"></td>
                         </tr>
                         <tr>
-                            <td>Date of Birth</td>
+                            <td><p class="p1">Date of Birth</p></td>
                             <td><input type="date" name="dob"></td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td><p class="p1">Address</p></td>
                             <td><input type="text" name="address"></td>
                         </tr>  
                         <tr>
-                            <td>Agree to TOS</td>
+                            <td><p class="p1">Agree to TOS</p></td>
                             <td><input type="checkbox" name="tos" value="true"><br>
                         </tr>  
                         <tr>
@@ -98,8 +99,8 @@
                 }
             %>
         </div>
-        <div class="third">
-
+        <div class="filler1"></div>
+        <div class="third">            
         </div>
     </body>
 </html>

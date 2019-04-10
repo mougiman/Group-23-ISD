@@ -28,10 +28,16 @@
             </div>
         </div>
         <div class="second">
-
+            <div class="fifth">
+                <h2>"Because Dvds never go out of fashion"</h2>
+                <h4>Services</h4>
+                <p>Here at 'Movie Store Online' we are dedicated to proving the newest and greatest movies of all time to out customers</p>
+                <p>Movies delivered within a week or they're free</p>
+                <p>Place and order now</p>
+            </div>
         </div>
         <div class="third">
-            
+
         </div>
     </body>
 </html>
