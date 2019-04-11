@@ -6,12 +6,20 @@
 package isd.model;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author mougi
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "users")
+
 public class Users {
+        @XmlElement(name = "user")
     private ArrayList<User> list = new ArrayList<User>();
  
     public ArrayList<User> getList() {
@@ -32,10 +40,10 @@ public class Users {
         }
         return null;
     }
-    public User login(String email, String password) {
+    public User login(String uname, String password) {
         // For each user in the list...
         for (User user : list) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password))
+            if (user.getUserName().equals(uname) && user.getPassword().equals(password))
                 return user; // Login correct. Return this user.
         }
         return null; // Login incorrect. Return null.

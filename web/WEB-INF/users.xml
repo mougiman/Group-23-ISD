@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<users>
+    <user>
+        <userName>Admin</userName>
+        <email>admin@adminstrator.com</email>
+        <name>Movie Store Admin</name>
+        <password>password</password>
+        <dob>11/11/1111</dob>
+        <address>dont worry about it</address>
+        <id>0000</id>
+    </user>
+</users>

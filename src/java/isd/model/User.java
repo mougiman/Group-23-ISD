@@ -5,19 +5,29 @@
  */
 package isd.model;
 
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  *
  * @author mougi
  */
 public class User {
+
+    @XmlElement(name = "userName")
     private String userName;
+    @XmlElement(name = "email")
     private String email;
+    @XmlElement(name = "name")
     private String name;
+    @XmlElement(name = "password")
     private String password;
+    @XmlElement(name = "dob")
     private String dob;
+    @XmlElement(name = "address")
     private String address;
+    @XmlElement(name = "id")
     private String id;
-    
+
     public User(String userName, String email, String name, String password, String dob, String address, String id) {
         this.userName = userName;
         this.email = email;
@@ -27,7 +37,7 @@ public class User {
         this.address = address;
         this.id = id;
     }
-    
+
     public User() {
     }
 
@@ -86,6 +96,5 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
-    
-    
+
 }

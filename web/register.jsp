@@ -17,6 +17,10 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <% String filePath = application.getRealPath("WEB-INF/users.xml");%>
+        <jsp:useBean id="usersApp" class="isd.model.usersApp" scope="application">
+            <jsp:setProperty name="usersApp" property="filePath" value="<%=filePath%>"/>
+        </jsp:useBean> 
         <div class="navbar">
             <div class="navbar2">
                 <a class="navbarTxt" href="index.jsp">Main</a>
@@ -26,10 +30,10 @@
                 <a class="navbarTxt" href="register.jsp">Register</a>
                 <a class="navbarTxt" href="login.jsp">Login</a>
                 <%  //}
-                    %>
+                %>
             </div>
         </div>
-                <div class="filler1"></div>
+        <div class="filler1"></div>
         <div class="second">
             <%
                 if (request.getParameter("email") == null) {
@@ -85,8 +89,10 @@
                     Random rand = new Random();
                     String id = "" + rand.nextInt(9999);
                     User user = new User(username, email, name, pword, dob, address, id);
-                    Users users = new Users();
-                    users.addUser(user);
+                    //Users users = new Users();
+                    //users.addUser(user);
+                    session.setAttribute("user", user);
+                    //usersApp.updateXML(users, filePath);
             %>
             <p>Thank You!</p>
             <p>Your account has been created</p>
