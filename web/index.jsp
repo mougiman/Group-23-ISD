@@ -4,6 +4,7 @@
     Author     : mougi
 --%>
 
+<%@page import="isd.model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,33 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-
+        <%
+            User user = (User) session.getAttribute("user");
+            String logout = request.getParameter("logout");
+            if (logout != null) {
+                session.invalidate();
+               // user = (User) session.getAttribute("user");
+            }
+        %>    
         <div class="navbar">
             <div class="navbar2">
                 <a class="navbarTxt" href="index.jsp">Main</a>
                 <a class="navbarTxt" href="catalogue.jsp">Movies</a>
-                <a class="navbarTxt" href="register.jsp">Register</a>
-                <a class="navbarTxt" href="login.jsp">Login</a>
+            </div>
+            <div class="navbar3">
+                <%  if (user == null) {
+                %>
+                <a class="navbarTxt3" href="register.jsp">Register</a>
+                <a class="navbarTxt3" href="login.jsp">Login</a>
+                <%  } else {
+                %>
+                <p class="navbarTxt2"><%=user.getUserName()%></p>
+                <form method="post" action="index.jsp">
+                    <input type="HIDDEN" name="logout" value="invalidate">
+                    <input class="navbarTxt3" type="submit" value="Logout"><!--this was going to be a button with javascript but using a form has the same effect-->
+                </form>
+                <%  }
+                %>
             </div>
         </div>
         <div class="first">

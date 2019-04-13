@@ -5,19 +5,16 @@
  */
 package isd.model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import java.io.*;
+import javax.xml.bind.*;
+import isd.model.Users;
+
 
 /**
  *
  * @author mougi
  */
-public class usersApp {
+public class usersApp implements Serializable {
   private String filePath;
     private Users users;
     

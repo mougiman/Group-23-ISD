@@ -44,9 +44,9 @@
                             session.setAttribute("user", user);
                 %>
                 <p>Login Successful</p>
-                <p>Click <a href="main.jsp">here</a> to proceed</p>
+                <p>Click <a href="index.jsp">here</a> to proceed</p>
                 <%} else {%>
-                <p>Login failed</p>                     /
+                <p>Login failed</p>                     
                 <p>Click <a href="login.jsp">here</a> to try again</p>
                 <%}
                 } else {%>

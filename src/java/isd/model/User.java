@@ -5,13 +5,17 @@
  */
 package isd.model;
 
+import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
  * @author mougi
  */
-public class User {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class User implements Serializable{
 
     @XmlElement(name = "userName")
     private String userName;

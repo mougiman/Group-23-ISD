@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <users>
     <user>
-        <userName>Admin</userName>
+        <userName>admin</userName>
         <email>admin@adminstrator.com</email>
         <name>Movie Store Admin</name>
         <password>password</password>
