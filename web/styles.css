@@ -25,6 +25,7 @@ body{
 }
 
 .navbarTxt{
+    background-color: #404040;
     display: inline-block;
     color: white;
     text-decoration: none;
@@ -42,6 +43,7 @@ body{
 }
 
 .navbarTxt2{
+    background-color: #404040;
     display: inline-block;
     color: white;
     text-decoration: none;
@@ -52,6 +54,7 @@ body{
 }
 
 .navbarTxt3{
+    background-color: #404040;
     display: inline-block;
     color: white;
     text-decoration: none;
@@ -98,6 +101,7 @@ body{
 
 .second{
     background-color: white;
+    margin: auto;
 }
 
 .third{
@@ -138,4 +142,26 @@ body{
     margin: auto;
     width: 60%;
     padding: 10px;
+}
+
+.sixth{
+    width: 100%;
+    margin: auto;
+    padding: 15px;
+    display: inline-block;
+}
+
+.poster{    
+    display: inline-block;
+    padding: 8px;
+    border-radius: 8px;
+    margin: auto;
+    color: black;
+    text-align: center;
+    background-color: gray;
+}
+
+img{
+    width: 220px;
+    height: 340px;
 }

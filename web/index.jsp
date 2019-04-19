@@ -35,7 +35,7 @@
                 <%  } else {
                 %>
                 <p class="navbarTxt2"><%=user.getUserName()%></p>
-                <form method="post" action="index.jsp">
+                <form method="post" action="index.jsp" style="display: inline-block">
                     <input type="HIDDEN" name="logout" value="invalidate">
                     <input class="navbarTxt3" type="submit" value="Logout"><!--this was going to be a button with javascript but using a form has the same effect-->
                 </form>
