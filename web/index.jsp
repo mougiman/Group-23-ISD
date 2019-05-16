@@ -19,31 +19,33 @@
             String logout = request.getParameter("logout");
             if (logout != null) {
                 session.invalidate();
-               // user = (User) session.getAttribute("user");
+                // user = (User) session.getAttribute("user");
             }
         %>    
-        <div class="navbar">
-            <div class="navbar2">
-                <a class="navbarTxt" href="index.jsp">Main</a>
-                <a class="navbarTxt" href="catalogue.jsp">Movies</a>
-            </div>
-            <div class="navbar3">
-                <%  if (user == null) {
-                %>
-                <a class="navbarTxt3" href="register.jsp">Register</a>
-                <a class="navbarTxt3" href="login.jsp">Login</a>
-                <%  } else {
-                %>
-                <p class="navbarTxt2"><%=user.getUserName()%></p>
-                <form method="post" action="index.jsp" style="display: inline-block">
-                    <input type="HIDDEN" name="logout" value="invalidate">
-                    <input class="navbarTxt3" type="submit" value="Logout"><!--this was going to be a button with javascript but using a form has the same effect-->
-                </form>
-                <%  }
-                %>
-            </div>
-        </div>
+
         <div class="first">
+            <div class="navbar">
+                <div class="navbar2">
+                    <a class="navbarTxt" href="index.jsp">MAIN</a>
+                    <a class="navbarTxt" href="catalogue.jsp">MOVIES</a>
+                </div>
+                <div class="navbar3">
+                    <%  if (user == null) {
+                    %>
+                    <a class="navbarTxt3" href="register.jsp">REGISTER</a>
+                    <a class="navbarTxt3" href="login.jsp">LOGIN</a>
+                    <%  } else {
+                    %>
+                    <p class="navbarTxt2"><%=user.getUserName()%></p>
+                    <form method="post" action="index.jsp" style="display: inline-block">
+                        <input type="HIDDEN" name="logout" value="invalidate">
+                        <input class="navbarTxt3" type="submit" value="LOGOUT"><!--this was going to be a button with javascript but using a form has the same effect-->
+                    </form>
+                    <%  }
+                    %>
+                </div>
+            </div>
+
             <div class="text">
                 <p><strong>Movie Store Online</strong></p>
             </div>

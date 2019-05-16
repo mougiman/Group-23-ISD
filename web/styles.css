@@ -25,13 +25,12 @@ body{
 }
 
 .navbarTxt{
-    background-color: #404040;
     display: inline-block;
     color: white;
     text-decoration: none;
     font-style: normal;
     font-size: 30px;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: Helvetica,Arial,sans-serif;
     padding: 10px;
 }
 
@@ -43,7 +42,6 @@ body{
 }
 
 .navbarTxt2{
-    background-color: #404040;
     display: inline-block;
     color: white;
     text-decoration: none;
@@ -54,7 +52,6 @@ body{
 }
 
 .navbarTxt3{
-    background-color: #404040;
     display: inline-block;
     color: white;
     text-decoration: none;
@@ -72,21 +69,21 @@ body{
 }
 
 .navbar{
-    background-color: #404040;
-    padding: 10px;
+    background-color: none; 
     margin: auto;
 }
 
 .navbar2{
-    margin-left: 10%;
+    margin-left: 15%;
     text-align: left;
     display: inline-block;
 }
 
 .navbar3{
-    margin-right: 10%;
+    margin-right: 15%;
     text-align: right;
     display: inline-block;
+    float: right;
 }
 
 .first{
@@ -116,6 +113,9 @@ body{
     width: 40%;
     border-radius: 25px;
     margin: auto;
+}
+.seventh{
+
 }
 
 .text{
