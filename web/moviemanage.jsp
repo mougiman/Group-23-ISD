@@ -27,18 +27,19 @@
 
             //Movie register code
             String name = request.getParameter("name");
-            String genre = request.getParameter("genre");
-            String posterref = request.getParameter("posterref");
-            Double price = Double.parseDouble(request.getParameter("name"));
-            String desc = request.getParameter("desc");
-            int stock = Integer.parseInt(request.getParameter("address"));
-            Random rand = new Random();
-            int id = rand.nextInt(9999);
-            //Movie movie = new Movie(id, name, genre, desc, posterref, price, stock, 0);
-            //Might not need this ^
-            DBManager manager = (DBManager)session.getAttribute("manager");
-            manager.addMovie(id, name, genre, desc, posterref, price, stock, 0);
-
+            if (name != null) {
+                String genre = request.getParameter("genre");
+                String posterref = request.getParameter("posterref");
+                Double price = Double.parseDouble(request.getParameter("price"));
+                String desc = request.getParameter("desc");
+                int stock = Integer.parseInt(request.getParameter("stock"));
+                Random rand = new Random();
+                int id = rand.nextInt(9999);
+                //Movie movie = new Movie(id, name, genre, desc, posterref, price, stock, 0);
+                //Might not need this ^
+                DBManager manager = (DBManager) session.getAttribute("manager");
+                manager.addMovie(id, name, genre, desc, posterref, price, stock, 0);
+            }
 
         %>    
         <div class="navbar-colored">
@@ -63,9 +64,11 @@
             </div>
         </div>
 
+
+
         <div class="sixth">
             <div class="fifth">
-
+                a table of movies
             </div>
             <div class="fifth">
                 <form method="post" action="moviemanage.jsp">

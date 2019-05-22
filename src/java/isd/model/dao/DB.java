@@ -8,7 +8,7 @@ import java.sql.Connection;
  */
 public abstract class DB {
     protected String URL = "";//replace empty-string with jdbc:derby local host url
-    protected String db = "studentsdb";//name of the database
+    protected String db = "MovieDB";//name of the database
     protected String dbuser = "isduser";//db root user
     protected String dbpass = "admin"; //db root password
     protected String driver = "org.apache.derby.jdbc.ClientDriver"; //jdbc client driver - built in with NetBeans

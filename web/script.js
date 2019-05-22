@@ -45,9 +45,9 @@ var myNav = document.getElementById('navbar');
         myNav.classList.add("nav-transparent");
                 myNav.classList.remove("nav-colored");
         }
-        });
+    };
 });
-}
+});
 
 
 

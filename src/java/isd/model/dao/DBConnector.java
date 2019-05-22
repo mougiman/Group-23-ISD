@@ -23,9 +23,9 @@ public class DBConnector {
 
 private String URL = "jdbc:derby://localhost:1527/MovieDB";
 
-private String dbuser = "MovieUser";
+private String dbuser = "isduser";
 
-private String dbpass = "password";
+private String dbpass = "admin";
 
 private String driver = "org.apache.derby.jdbc.ClientDriver";
 
