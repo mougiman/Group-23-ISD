@@ -13,17 +13,17 @@ public class Movie {
     private int ID;
     private String Name;
     private String Genre;
-    private String Decription;
+    private String Description;
     private String PosterRef;
     private Double Price;
     private int Stock;
     private int Sold;
 
-    public Movie(int ID, String Name, String Genre, String Decription, String PosterRef, Double Price, int Stock, int Sold) {
+    public Movie(int ID, String Name, String Genre, String Description, String PosterRef, Double Price, int Stock, int Sold) {
         this.ID = ID;
         this.Name = Name;
         this.Genre = Genre;
-        this.Decription = Decription;
+        this.Description = Description;
         this.PosterRef = PosterRef;
         this.Price = Price;
         this.Stock = Stock;
@@ -58,12 +58,12 @@ public class Movie {
         this.Genre = Genre;
     }
 
-    public String getDecription() {
-        return Decription;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setDecription(String Decription) {
-        this.Decription = Decription;
+    public void setDescription(String Decription) {
+        this.Description = Decription;
     }
 
     public String getPosterRef() {
@@ -97,9 +97,5 @@ public class Movie {
     public void setSold(int Sold) {
         this.Sold = Sold;
     }
-
-
-    
-    
     
 }

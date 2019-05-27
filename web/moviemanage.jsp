@@ -4,10 +4,13 @@
     Author     : Mougi
 --%>
 
+<%@page import="isd.model.Movies"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="isd.model.dao.DBManager"%>
 <%@page import="isd.model.Movie"%>
 <%@page import="java.util.Random"%>
 <%@page import="isd.model.User"%>
+<%@page import="isd.model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,6 +29,21 @@
             }
 
             //Movie register code
+            DBManager manager = (DBManager) session.getAttribute("manager");
+
+            boolean delete = false;
+            delete = Boolean.parseBoolean(request.getParameter("delete"));
+            if (delete == true) {
+                manager.deleteMovie(Integer.parseInt(request.getParameter("id")));
+            }
+
+            boolean search = false;
+            ArrayList<Movie> searchList;
+            search = Boolean.parseBoolean(request.getParameter("search"));
+            if (search == true) {
+                 searchList = manager.findMovie(Integer.parseInt(request.getParameter("id")));
+            }
+
             String name = request.getParameter("name");
             if (name != null) {
                 String genre = request.getParameter("genre");
@@ -35,9 +53,6 @@
                 int stock = Integer.parseInt(request.getParameter("stock"));
                 Random rand = new Random();
                 int id = rand.nextInt(9999);
-                //Movie movie = new Movie(id, name, genre, desc, posterref, price, stock, 0);
-                //Might not need this ^
-                DBManager manager = (DBManager) session.getAttribute("manager");
                 manager.addMovie(id, name, genre, desc, posterref, price, stock, 0);
             }
 
@@ -56,7 +71,7 @@
                 %>
                 <p class="navbarTxt2"><%=user.getUserName()%></p>
                 <form method="post" action="index.jsp" style="display: inline-block">
-                    <input type="HIDDEN" name="logout" value="invalidate">
+                    <input type="HIDDEN" name="logout" value="invalidate"><!--idk if this does anything-->
                     <input class="navbarTxt3" type="submit" value="Logout"><!--this was going to be a button with javascript but using a form has the same effect-->
                 </form>
                 <%  }
@@ -64,13 +79,79 @@
             </div>
         </div>
 
-
-
         <div class="sixth">
-            <div class="fifth">
-                a table of movies
+            <div class="seventh">
+                <table class="tablescroll">
+                    <thead>
+                        <tr>
+                            <td><p class="p4">ID</p></td>
+                            <td><p class="p4">Name</p></td>
+                            <td><p class="p4">Genre</p></td>
+                            <td><p class="p4">PosterRef</p></td>
+                            <td><p class="p4">Description</p></td>
+                            <td><p class="p4">Price</p></td>
+                            <td><p class="p4">Sold</p></td>
+                            <td><p class="p4">Stock</p></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                                ArrayList<Movie> list = new ArrayList<Movie>();
+                                if (search == false) {
+                                    list = manager.allMovie();
+                                } else {
+                                    list = manager.findMovie(Integer.parseInt(request.getParameter("id")));
+;
+                                }
+                            
+                            for (Movie movie : list) {
+                        %>
+                        <tr>
+                            <td><p class="p3"><%=movie.getID()%></p></td>
+                            <td><p class="p3"><%=movie.getName()%></p></td>
+                            <td><p class="p3"><%=movie.getGenre()%></p></td>
+                            <td><p class="p3"><%=movie.getPosterRef()%></p></td>
+                            <td><p class="p3"><%=movie.getDescription()%></p></td>
+                            <td><p class="p3">$<%=movie.getPrice()%></p></td>
+                            <td><p class="p3"><%=movie.getSold()%></p></td>
+                            <td><p class="p3"><%=movie.getStock()%></p></td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
+                <form method="post" action="editmovie.jsp">
+                    <table>
+                        <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
+                        <tr>
+                        <input type="HIDDEN" name="edit" value="true">
+                        <td><input type="submit" value="Edit"></td>
+                        </tr>
+                    </table>
+                </form>
+                <form method="post" action="moviemanage.jsp">
+                    <table>
+                        <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
+                        <tr>
+                        <input type="HIDDEN" name="delete" value="true">
+                        <td><input type="submit" value="Delete"></td>
+                        </tr>
+                    </table>
+                </form>
+                <form method="post" action="moviemanage.jsp">
+                    <table>
+                        <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
+                        <tr>
+                        <input type="HIDDEN" name="search" value="true">
+                        <td><input type="submit" value="Search"></td>
+                        </tr>
+                    </table>
+                </form>
+
             </div>
-            <div class="fifth">
+            <div class="filler1"></div>
+            <div class="seventh">
                 <form method="post" action="moviemanage.jsp">
                     <table>
                         <tr><td><p class="p2">Name     :</p></td><td><input type="text" name="name"></td></tr>

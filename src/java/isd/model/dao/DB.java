@@ -7,7 +7,7 @@ import java.sql.Connection;
  * @author George
  */
 public abstract class DB {
-    protected String URL = "";//replace empty-string with jdbc:derby local host url
+    protected String URL = "jdbc:derby://localhost:1527/";//replace empty-string with jdbc:derby local host url
     protected String db = "MovieDB";//name of the database
     protected String dbuser = "isduser";//db root user
     protected String dbpass = "admin"; //db root password

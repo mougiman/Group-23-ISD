@@ -28,7 +28,18 @@ body{
     font-size: 25px;
     font-family: Helvetica,Arial,sans-serif;
     margin-left: 20px;
-    
+}
+
+.p3{
+    color: white;
+    font-size: 15px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.p4{
+    color: white;
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
 }
 
 .navbarTxt{
@@ -109,6 +120,7 @@ body{
 .second{
     background-color: white;
     margin: auto;
+    height: 200px;
 }
 
 .third{
@@ -126,11 +138,12 @@ body{
 }
 
 .fifth{
-    border-radius: 5px;
-    background-color: #333;
+    background-color: #191919;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    margin-top: 0;
     margin: auto;
-    width: 60%;
     padding: 10px;
+    color: white;
 }
 
 .sixth{
@@ -140,8 +153,14 @@ body{
     display: inline-block;
 }
 
-.seventh{
-
+.seventh{   /*boxes on moviemanage.jsp*/
+    border-radius: 10px;
+    background-color: #191919;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+    color: white;
 }
 
 .text{
@@ -179,13 +198,33 @@ img{
     height: 340px;
 }
 table{
+
+}
+
+.tablescroll{
     width: 100%;
     border-spacing: 0px;
     border-collapse: separate;
+    
 }
 
-tr{
-    
+.tablescroll tr:nth-child(even){
+    background-color: black;
+}
+
+.tablescroll tbody{
+    display: block;
+    overflow:auto;
+    height: 300px;
+    position: relative;
+}
+
+.tablescroll thead{
+    display: block;
+}
+
+.tablescroll tr{
+    display: block;
 }
 
 td{
