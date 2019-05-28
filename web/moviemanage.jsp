@@ -41,7 +41,7 @@
             ArrayList<Movie> searchList;
             search = Boolean.parseBoolean(request.getParameter("search"));
             if (search == true) {
-                 searchList = manager.findMovie(Integer.parseInt(request.getParameter("id")));
+                 searchList = manager.searchMovie(Integer.parseInt(request.getParameter("id")));
             }
 
             String name = request.getParameter("name");
@@ -100,7 +100,7 @@
                                 if (search == false) {
                                     list = manager.allMovie();
                                 } else {
-                                    list = manager.findMovie(Integer.parseInt(request.getParameter("id")));
+                                    list = manager.searchMovie(Integer.parseInt(request.getParameter("id")));
 ;
                                 }
                             
@@ -125,7 +125,6 @@
                     <table>
                         <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
                         <tr>
-                        <input type="HIDDEN" name="edit" value="true">
                         <td><input type="submit" value="Edit"></td>
                         </tr>
                     </table>

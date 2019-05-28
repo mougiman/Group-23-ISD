@@ -25,8 +25,8 @@ public class DBManager {
     }
 
     //Find student by ID in the database
-    public ArrayList<Movie> findMovie(int ID) throws SQLException {
-        ArrayList<Movie> list = new ArrayList<Movie>();
+    public Movie findMovie(int ID) throws SQLException {
+        Movie movie = new Movie();
         String query = "SELECT * FROM MOVIES WHERE ID = "+ID;
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
@@ -38,10 +38,9 @@ public class DBManager {
             Double price = Double.parseDouble(rs.getString(6));
             int stock = Integer.parseInt(rs.getString(7));
             int sold = Integer.parseInt(rs.getString(8));
-            Movie movie = new Movie(id, name, genre, desc, posterref, price, stock, sold);
-            list.add(movie);
+            movie = new Movie(id, name, genre, desc, posterref, price, stock, sold);
         }
-        return list;
+        return movie;
     }
 
     //Check if a student exist in the database
@@ -64,6 +63,25 @@ public class DBManager {
         return list;
     }
 
+        public ArrayList<Movie> searchMovie(int ID) throws SQLException {
+        ArrayList<Movie> list = new ArrayList<Movie>();
+        String query = "SELECT * FROM MOVIES WHERE ID ="+ID;
+        ResultSet rs = st.executeQuery(query);
+        while (rs.next()) {
+            int id = Integer.parseInt(rs.getString(1));
+            String name = rs.getString(2);
+            String genre = rs.getString(3);
+            String desc = rs.getString(4);
+            String posterref = rs.getString(5);
+            Double price = Double.parseDouble(rs.getString(6));
+            int stock = Integer.parseInt(rs.getString(7));
+            int sold = Integer.parseInt(rs.getString(8));
+            Movie movie = new Movie(id, name, genre, desc, posterref, price, stock, sold);
+            list.add(movie);
+        }
+        return list;
+    }
+    
     //Add a student-data into the database
     public void addMovie(int ID, String name, String genre, String description, String posterref, Double Price, int stock, int sold) throws SQLException {
         String query = "INSERT INTO MOVIES (ID, NAME, GENRE, DESCRIPTION, POSTERREF, PRICE, STOCK, SOLD) VALUES (" + ID + ",'" + name + "','" + genre + "','" + description + "','" + posterref + "'," + Price + "," + stock + "," + sold + ")";
@@ -72,8 +90,9 @@ public class DBManager {
     }
 
     //update a student details in the database
-    public void updateMoive(String ID, String email, String name, String password, String dob, String favcol) throws SQLException {
-        //code for update-operation
+    public void updateMovie(int ID, String name, String genre, String description, String posterref, Double Price, int stock, int sold) throws SQLException {
+        String query = "UPDATE MOVIES SET NAME = '"+name+"', GENRE = '"+genre+"', DESCRIPTION = '"+description+"', POSTERREF = '"+posterref+"', Price = "+Price+", STOCK = "+stock+", SOLD = "+stock+" WHERE ID ="+ID;
+        st.executeUpdate(query);
     }
 
     //delete a student from the database

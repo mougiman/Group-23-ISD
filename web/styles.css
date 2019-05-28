@@ -227,6 +227,10 @@ table{
     display: block;
 }
 
+.tablescroll td{
+    width: 200px;
+}
+
 td{
    
 }
