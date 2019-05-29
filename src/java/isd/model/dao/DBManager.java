@@ -63,9 +63,9 @@ public class DBManager {
         return list;
     }
 
-        public ArrayList<Movie> searchMovie(int ID) throws SQLException {
+        public ArrayList<Movie> searchMovie(String search) throws SQLException {
         ArrayList<Movie> list = new ArrayList<Movie>();
-        String query = "SELECT * FROM MOVIES WHERE ID ="+ID;
+        String query = "SELECT * FROM MOVIES WHERE NAME LIKE '%"+search+"%' OR GENRE LIKE '%"+search+"%'";
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
             int id = Integer.parseInt(rs.getString(1));
@@ -85,7 +85,6 @@ public class DBManager {
     //Add a student-data into the database
     public void addMovie(int ID, String name, String genre, String description, String posterref, Double Price, int stock, int sold) throws SQLException {
         String query = "INSERT INTO MOVIES (ID, NAME, GENRE, DESCRIPTION, POSTERREF, PRICE, STOCK, SOLD) VALUES (" + ID + ",'" + name + "','" + genre + "','" + description + "','" + posterref + "'," + Price + "," + stock + "," + sold + ")";
-        //String query = "INSERT INTO MOVIES (ID, NAME, GENRE, DESCRIPTION, POSTERREF, PRICE, STOCK, SOLD) VALUES ('100','timbs','timbs','timbs','timbs','10','10','10')";
         st.executeUpdate(query);
     }
 
@@ -98,6 +97,11 @@ public class DBManager {
     //delete a student from the database
     public void deleteMovie(int ID) throws SQLException {
         String query = "DELETE FROM MOVIES WHERE ID = " + ID;
+        st.executeUpdate(query);
+    }
+    
+    public void deleteAllMovie() throws SQLException {
+        String query = "DELETE FROM MOVIES";
         st.executeUpdate(query);
     }
 }

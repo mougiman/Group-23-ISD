@@ -36,12 +36,18 @@
             if (delete == true) {
                 manager.deleteMovie(Integer.parseInt(request.getParameter("id")));
             }
+            
+            boolean deleteAll = false;
+            delete = Boolean.parseBoolean(request.getParameter("deleteAll"));
+            if (delete == true) {
+                manager.deleteAllMovie();
+            }
 
             boolean search = false;
-            ArrayList<Movie> searchList;
+            ArrayList<Movie> searchList = new ArrayList<Movie>();
             search = Boolean.parseBoolean(request.getParameter("search"));
             if (search == true) {
-                 searchList = manager.searchMovie(Integer.parseInt(request.getParameter("id")));
+                searchList = manager.searchMovie(request.getParameter("searchVal"));
             }
 
             String name = request.getParameter("name");
@@ -80,6 +86,16 @@
         </div>
 
         <div class="sixth">
+            <%
+                if (name != null) {
+            %>
+            <div class="seventh">
+                <p class="p2"><%=name%> has been added to the Catalogue</p>
+            </div>
+            <div class="filler1"></div>
+            <%
+                }
+            %>
             <div class="seventh">
                 <table class="tablescroll">
                     <thead>
@@ -96,14 +112,13 @@
                     </thead>
                     <tbody>
                         <%
-                                ArrayList<Movie> list = new ArrayList<Movie>();
-                                if (search == false) {
-                                    list = manager.allMovie();
-                                } else {
-                                    list = manager.searchMovie(Integer.parseInt(request.getParameter("id")));
-;
-                                }
-                            
+                            ArrayList<Movie> list = new ArrayList<Movie>();
+                            if (search == false) {
+                                list = manager.allMovie();
+                            } else {
+                                list = searchList;                              
+                            }
+
                             for (Movie movie : list) {
                         %>
                         <tr>
@@ -121,15 +136,15 @@
                         %>
                     </tbody>
                 </table>
-                <form method="post" action="editmovie.jsp">
+                <form method="post" action="editmovie.jsp" class="alt-table">
                     <table>
                         <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
                         <tr>
-                        <td><input type="submit" value="Edit"></td>
+                            <td><input type="submit" value="Edit"></td>
                         </tr>
                     </table>
                 </form>
-                <form method="post" action="moviemanage.jsp">
+                <form method="post" action="moviemanage.jsp" class="alt-table">
                     <table>
                         <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
                         <tr>
@@ -138,23 +153,46 @@
                         </tr>
                     </table>
                 </form>
-                <form method="post" action="moviemanage.jsp">
+                <form method="post" action="moviemanage.jsp" class="alt-table">
                     <table>
-                        <tr><td><p class="p3">Enter ID:</p></td><td><input type="text" name="id"></td></tr> 
+                        <tr><td><p class="p3">Enter Name or Genre:</p><p class="p3">(Upper and Lower Case Specific)</p></td><td><input type="text" name="searchVal">
+                                </td></tr> 
                         <tr>
                         <input type="HIDDEN" name="search" value="true">
                         <td><input type="submit" value="Search"></td>
                         </tr>
                     </table>
                 </form>
-
+                <form method="post" action="moviemanage.jsp" class="alt-table">
+                    <table>
+                        <tr><td><p class="p3">Delete All Movies</p></td></tr> 
+                        <tr>
+                        <input type="HIDDEN" name="deleteAll" value="true">
+                        <td><input type="submit" value="Delete All"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <div class="filler1"></div>
             <div class="seventh">
                 <form method="post" action="moviemanage.jsp">
                     <table>
                         <tr><td><p class="p2">Name     :</p></td><td><input type="text" name="name"></td></tr>
-                        <tr><td><p class="p2">Genre    :</p></td><td><input type="text" name="genre"></td></tr>
+                        <tr><td><p class="p2">Genre    :</p></td>
+                            <td>
+                                <select name="genre">
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Adventure">Adventure</option>
+                                    <option value="Action">Action</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Crime">Crime</option>
+                                    <option value="Sci-Fi">Sci-Fi</option>
+                                    <option value="Western">Western</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </td>
+                        </tr>
                         <tr><td><p class="p2">Poster Referance:</p></td><td><input type="text" name="posterref"></td></tr>
                         <tr><td><p class="p2">Price    :</p></td><td><input type="text" name="price"></td></tr>
                         <tr><td><p class="p2">Stock    :</p></td><td><input type="text" name="stock"></td></tr>

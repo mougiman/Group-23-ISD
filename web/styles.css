@@ -186,6 +186,8 @@ body{
 .poster{    
     display: inline-block;
     padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 8px;
     margin: auto;
     color: black;
@@ -198,19 +200,20 @@ img{
     height: 340px;
 }
 table{
-
+    margin: auto;
 }
 
 .tablescroll{
     width: 100%;
     border-spacing: 0px;
     border-collapse: separate;
-    
+
 }
 
 .tablescroll tr:nth-child(even){
     background-color: black;
 }
+
 
 .tablescroll tbody{
     display: block;
@@ -231,6 +234,121 @@ table{
     width: 200px;
 }
 
+.alt-table{
+    margin: auto;
+    display: inline-block;
+}
+
 td{
-   
+    padding: 20px;
+}
+
+.Other{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: lightgrey;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Fantasy{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: palegreen;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Horror{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: black;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    color: white;
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Adventure{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: palevioletred;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Action{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: palegoldenrod;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Romance{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: pink;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Crime{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: darkgrey;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    color: white;
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Sci-Fi{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: silver;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.Western{
+    margin: auto;
+    height: 300px;
+    width: 200px;
+    background-color: brown;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 300px;  
+    font-size: 25px;
+    font-family: Helvetica,Arial,sans-serif;
 }

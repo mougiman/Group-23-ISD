@@ -4,6 +4,9 @@
     Author     : mougi
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="isd.model.Movie"%>
+<%@page import="isd.model.dao.DBManager"%>
 <%@page import="isd.model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,7 +22,6 @@
             String logout = request.getParameter("logout");
             if (logout != null) {
                 session.invalidate();
-               // user = (User) session.getAttribute("user");
             }
         %>    
         <div class="navbar-colored">
@@ -47,24 +49,61 @@
         <div class="sixth">
             <table>
                 <%
-                    for (int i = 0; i < 3; i++) {
+                    DBManager manager = (DBManager) session.getAttribute("manager");
+                    ArrayList<Movie> list = new ArrayList<Movie>();
+                    list = manager.allMovie();
+                    int row = 0;
+                    for (Movie movie : list) {
+                        if (row == 0) {
                 %>
                 <tr>
-                    <% for (int i2 = 0; i2 < 4; i2++) {
-                    %>
                     <td>
                         <div class="poster">
-                            <img src="images/poster1.jpg" alt="Image not found">
-                            <p>Back to the Future</p>
-                            <p>$14.99</p>
+                            <div class="<%=movie.getGenre()%>">
+                                <p><%=movie.getName()%></p>
+                            </div>
+                            <p><%=movie.getName()%></p>
+                            <p><%=movie.getGenre()%></p>
+                            <p><%=movie.getPrice()%></p>
+                            <a href="">Add to checkout</a>
                         </div>
                     </td>
                     <%
-                        }
+                        row++;
+                    } else if (row == 5) {
                     %>
+                    <td>
+                        <div class="poster">
+                            <div class="<%=movie.getGenre()%>">
+                                <p><%=movie.getName()%></p>
+                            </div>
+                            <p><%=movie.getName()%></p>
+                            <p><%=movie.getGenre()%></p>
+                            <p><%=movie.getPrice()%></p>
+                            <a href="">Add to checkout</a>
+                        </div>
+                    </td>
                 </tr>
-                <%   }
+                <%
+                    row = 0;
+                } else {
                 %>
+                <td>
+                    <div class="poster">
+                        <div class="<%=movie.getGenre()%>">
+                                <p><%=movie.getName()%></p>
+                            </div>
+                        <p><%=movie.getName()%></p>
+                        <p><%=movie.getGenre()%></p>
+                        <p><%=movie.getPrice()%></p>
+                        <a href="">Add to checkout</a>
+                    </div>
+                </td>
+                <%
+                            row++;
+                        }
+                    }
+                %>              
             </table>
         </div>
         <div class="third">

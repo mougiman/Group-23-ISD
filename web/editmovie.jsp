@@ -75,7 +75,20 @@
                 <form method="post" action="editmovie.jsp">
                     <table>
                         <tr><td><p class="p2">Name     :</p></td><td><input type="text" name="name" value="<%=movie.getName()%>"></td></tr>
-                        <tr><td><p class="p2">Genre    :</p></td><td><input type="text" name="genre" value="<%=movie.getGenre()%>"></td></tr>
+                        <tr><td><p class="p2">Genre    :</p></td>                            <td>
+                                <select name="genre">
+                                    <option value="<%=movie.getGenre()%>"><%=movie.getGenre()%></option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Adventure">Adventure</option>
+                                    <option value="Action">Action</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Crime">Crime</option>
+                                    <option value="Sci-Fi">Sci-Fi</option>
+                                    <option value="Western">Western</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </td></tr>
                         <tr><td><p class="p2">Poster Referance:</p></td><td><input type="text" name="posterref" value="<%=movie.getPosterRef()%>"></td></tr>
                         <tr><td><p class="p2">Price    :</p></td><td><input type="text" name="price" value="<%=movie.getPrice()%>"></td></tr>
                         <tr><td><p class="p2">Stock    :</p></td><td><input type="text" name="stock" value="<%=movie.getStock()%>"></td></tr>
