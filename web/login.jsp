@@ -4,6 +4,11 @@
     Author     : mougi
 --%>
 
+<%@page import="isd.model.dao.DBConnector"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
+<%@page import="isd.model.dao.DBManager"%>
 <%@page import="isd.model.User"%>
 <%@page import="isd.model.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,6 +20,7 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+          
         <% String filePath = application.getRealPath("WEB-INF/users.xml");%>
         <jsp:useBean id="usersApp" class="isd.model.usersApp" scope="application">
             <jsp:setProperty name="usersApp" property="filePath" value="<%=filePath%>"/>
@@ -24,6 +30,7 @@
             String logout = request.getParameter("logout");
             if (logout != null) {
                 session.invalidate();
+              
                // user = (User) session.getAttribute("user");
             }
         %>    
@@ -52,36 +59,52 @@
         <div class="filler1"></div>
         <div class="second">
             <div class="fourth">
+                
                 <%
-                    String uname = request.getParameter("userName");
+                     DBConnector dbConnector = new DBConnector();
+                    DBManager dbManager = new DBManager(dbConnector.openConnection());
+                    session.setAttribute("manager",dbManager);
+                   DBManager manager = (DBManager)session.getAttribute("manager");
+                    String username = request.getParameter("username");
                     String pword = request.getParameter("password");
-                    Users users = usersApp.getUsers();
-                    if (uname != null) {  //if this is the first time accessng the link, display form, else, perform users.login
-                        User newUser = users.login(uname, pword);
-                        if (newUser != null) {
-                            session.setAttribute("user", newUser);
-                %>
-                <p class="p1">Login Successful</p>
-                <p class="p1">Click <a href="index.jsp">here</a> to proceed</p>
-                <%} else {%>
-                <p class="p1">Login failed</p>                     
-                <p class="p1">Click <a href="login.jsp">here</a> to try again</p>
-                <%}
-                } else {%>
-                <h2  class="p1">Login</h2>
-                <form method="post" action="login.jsp">
-                    <table>
-                        <tr><td><p class="p1">Username :</p></td><td><input type="text" name="userName"></td></tr>
-                        <tr><td><p class="p1">Password :</p></td><td><input type="password" name="password"></td></tr>
-                        <tr><td></td><td><input type="submit" value="Login"></td></tr>
-                    </table>            
-                </form>
-                <p class="p1">Click here to <u><a href="register.jsp">Register</a></u>.</p>
-                        <%}%>
+                    
+                    if (username!=null)
+                    {
+                             User loginUser = manager.findUser(username,pword);
+
+                            if (loginUser!= null) 
+                            {  manager.record(loginUser);
+                                session.setAttribute("user",loginUser);      
+                        %>
+                                <p class="p1">Login Successful</p>
+                                <p class="p1">Click <a href="index.jsp">here</a> to proceed</p>
+                        <%   } 
+                             else 
+                             {
+                            %>
+                                <p class="p1">Login failed</p>                     
+                                <p class="p1">Click <a href="login.jsp">here</a> to try again</p>
+                            <%} 
+                     }
+                else{
+                    %>
+                            <h2  class="p1">Login</h2>
+                            <form method="post" action="login.jsp">
+
+                                    <tr><td><p class="p1">Username :</p></td><td><input type="text" name="username"></td></tr>
+                                    <tr><td><p class="p1">Password :</p></td><td><input type="password" name="password"></td></tr>
+                                    <tr><td></td><td><input type="submit" value="Login"></td></tr>
+
+                            </form>
+                            <p class="p1">Click here to <u><a href="register.jsp">Register</a></u>.</p>
+                <%   }%>
+                        
             </div>
             <div class="filler1"></div>
             <div class="third">
 
             </div>
+                
+              
     </body>
 </html>

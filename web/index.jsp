@@ -22,19 +22,6 @@
                 // user = (User) session.getAttribute("user");
             }
         %>    
-        <script>
-            function scrollTest() {
-                if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                    document.getElementById("navbar").className = "nav-colored";
-                } else {
-                    document.getElementById("navbar").className = "nav-transparent";
-                }
-            }
-
-            window.onscroll = function () {
-                scrollTest()
-            };
-        </script>
         <div class="first">
             <div class="navbar-transparent" id="navbar">
                 <div class="navbar2">
@@ -49,7 +36,7 @@
                     <a class="navbarTxt3" href="login.jsp">LOGIN</a>
                     <%  } else {
                     %>
-                    <p class="navbarTxt"><%=user.getUserName()%></p>
+                    <a class="navbarTxt" href="edituser.jsp"><%=user.getUserName()%></a>
                     <form method="post" action="index.jsp">
                         <input type="HIDDEN" name="logout" value="invalidate">
                         <input class="navbarTxt" type="submit" value="LOGOUT"><!--this was going to be a button with javascript but using a form has the same effect-->

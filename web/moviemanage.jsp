@@ -90,7 +90,7 @@
                 if (name != null) {
             %>
             <div class="seventh">
-                <p class="p2"><%=name%> has been added to the Catalogue</p>
+                <p class="p2">"<%=name%>" has been added to the Catalogue</p>
             </div>
             <div class="filler1"></div>
             <%

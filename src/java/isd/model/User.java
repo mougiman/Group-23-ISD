@@ -6,6 +6,9 @@
 package isd.model;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -100,5 +103,6 @@ public class User implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-
+    
 }
+

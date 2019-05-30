@@ -4,6 +4,7 @@
     Author     : mougi
 --%>
 
+<%@page import="isd.model.dao.DBManager"%>
 <%@page import="isd.model.Users"%>
 <%@page import="isd.model.User"%>
 <%@page import="java.util.Random"%>
@@ -106,14 +107,14 @@
                     Random rand = new Random();
                     String id = "" + rand.nextInt(9999);
                     User newUser = new User(username, email, name, pword, dob, address, id);
-                    Users users = usersApp.getUsers();
-                    users.addUser(newUser);
-                    //session.setAttribute("user", newUser);
-                    usersApp.updateXML(users, filePath);
+                    DBManager manager = (DBManager)session.getAttribute("manager");
+                    manager.record(newUser);
+                    manager.addUser(id, email, name, pword, dob, username, address);
+
             %>
             <p>Thank You!</p>
             <p>Your account has been created</p>
-            <p>Click <a href="login.jsp">here</a> to login.</p>
+            <p>Click <a href="index.jsp">here</a> to go to the Main page.</p>
             <%            } else {
             %>
             <p>Sorry, you must agree to the Terms of Service</p>

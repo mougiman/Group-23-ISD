@@ -62,10 +62,13 @@
                             <div class="<%=movie.getGenre()%>">
                                 <p><%=movie.getName()%></p>
                             </div>
-                            <p><%=movie.getName()%></p>
+                            <p><b><%=movie.getName()%></b></p>
                             <p><%=movie.getGenre()%></p>
-                            <p><%=movie.getPrice()%></p>
-                            <a href="">Add to checkout</a>
+                            <p>$<%=movie.getPrice()%></p>
+                            <form method="post" action="moviedesc.jsp">
+                                <input type="HIDDEN" name="id" value="<%=movie.getID()%>">
+                                <input class="" type="submit" value="Add to Cart"><!--this was going to be a button with javascript but using a form has the same effect-->
+                            </form>
                         </div>
                     </td>
                     <%
@@ -75,12 +78,15 @@
                     <td>
                         <div class="poster">
                             <div class="<%=movie.getGenre()%>">
-                                <p><%=movie.getName()%></p>
+                                <p>"<%=movie.getName()%>"</p>
                             </div>
-                            <p><%=movie.getName()%></p>
+                            <p><b><%=movie.getName()%></b></p>
                             <p><%=movie.getGenre()%></p>
-                            <p><%=movie.getPrice()%></p>
-                            <a href="">Add to checkout</a>
+                            <p>$<%=movie.getPrice()%></p>
+                            <form method="post" action="moviedesc.jsp">
+                                <input type="HIDDEN" name="id" value="<%=movie.getID()%>">
+                                <input class="" type="submit" value="Add to Cart"><!--this was going to be a button with javascript but using a form has the same effect-->
+                            </form>
                         </div>
                     </td>
                 </tr>
@@ -91,12 +97,15 @@
                 <td>
                     <div class="poster">
                         <div class="<%=movie.getGenre()%>">
-                                <p><%=movie.getName()%></p>
-                            </div>
-                        <p><%=movie.getName()%></p>
+                            <p><%=movie.getName()%></p>
+                        </div>
+                        <p><b><%=movie.getName()%></b></p>
                         <p><%=movie.getGenre()%></p>
-                        <p><%=movie.getPrice()%></p>
-                        <a href="">Add to checkout</a>
+                        <p>$<%=movie.getPrice()%></p>
+                        <form method="post" action="moviedesc.jsp">
+                            <input type="HIDDEN" name="id" value="<%=movie.getID()%>">
+                            <input class="" type="submit" value="Add to Cart"><!--this was going to be a button with javascript but using a form has the same effect-->
+                        </form>
                     </div>
                 </td>
                 <%
