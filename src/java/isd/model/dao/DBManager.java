@@ -45,9 +45,9 @@ public class DBManager {
         }
         return movie;
     }
-    
-     public User findUser(String username,String password) throws SQLException {
-  
+
+    public User findUser(String username, String password) throws SQLException {
+
         String query = "SELECT * FROM USERDB WHERE USERNAME = '" + username + "' and PASSWORD ='" + password + "'";
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
@@ -59,7 +59,8 @@ public class DBManager {
                 String email = rs.getString(3);
                 String dob = rs.getString(5);
                 String address = rs.getString(6);
-                User user = new User(cUsername,email, name, password, dob,address, userID);
+                Boolean staff = rs.getBoolean(8);
+                User user = new User(cUsername, email, name, password, dob, address, userID, staff);
                 return user;
             }
         }
@@ -145,17 +146,20 @@ public class DBManager {
 
     public ArrayList<Login> searchLoginT(String ID, String date) throws SQLException {
         ArrayList<Login> list = new ArrayList<Login>();
-        String query = "SELECT * FROM LOGINHISTORY WHERE ID = '" + ID + "' AND LOGINDATE= '" + date + "' OR LOGOUTDATE ='" + date + "'  ";
+        String query = "SELECT * FROM LOGINHISTORY WHERE ID = '" + ID + "' AND LOGINDATE= '" + date + "' OR ID = '" + ID + "' AND LOGOUTDATE ='" + date + "'  ";
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
             String time = rs.getString(2);
             String outTime = rs.getString(4);
-
-            Login login = new Login(ID, time, date, outTime, date);
-            list.add(login);
+            if (time == null) {
+                Login login = new Login(ID, time, "null", outTime, date);
+                list.add(login);
+            } else {
+                Login login = new Login(ID, time, date, outTime, "null");
+                list.add(login);
+            }
         }
         return list;
-
     }
 
     public String getTime() {
@@ -186,41 +190,42 @@ public class DBManager {
         String update = " DELETE FROM LOGINHISTORY WHERE ID = '" + user.getId() + "' ";
         st.executeUpdate(update);
     }
-    
-        public ArrayList<User> searchUser(String ID) throws SQLException {
+
+    public ArrayList<User> searchUser(String ID) throws SQLException {
         ArrayList<User> list = new ArrayList<User>();
-        
-        String query = "SELECT * FROM USERDB WHERE ID ="+ID;
+
+        String query = "SELECT * FROM USERDB WHERE ID =" + ID;
         ResultSet rs = st.executeQuery(query);
-        
+
         while (rs.next()) {
-           String userID = rs.getString(1);
-           String userPass = rs.getString(4);
-           String email = rs.getString(2);
-           String name = rs.getString(3);
-           String dob = rs.getString(5);
-           String userName = rs.getString(7);
-           String address = rs.getString(8);
-           User user = new User(userID, email, name, userPass, dob, userName, address);
-           list.add(user);
+            String userID = rs.getString(1);
+            String userPass = rs.getString(4);
+            String email = rs.getString(3);
+            String name = rs.getString(7);
+            String dob = rs.getString(5);
+            String userName = rs.getString(2);
+            String address = rs.getString(6);
+            Boolean staff = rs.getBoolean(8);
+            User user = new User(userID, email, name, userPass, dob, userName, address, staff);
+            list.add(user);
         }
         return list;
     }
-    
+
     //Add a student-data into the database
     public void addUser(String ID, String email, String name, String password, String dob, String userName, String address) throws SQLException {
-        String query = "INSERT INTO USERDB (ID, EMAIL, NAME, PASSWORD, DOB, USERNAME, ADDRESS) VALUES ('" + ID + "','" + email + "','" + name + "','" + password + "','" + dob + "','" + userName + "','" + address+ "')";
+        String query = "INSERT INTO USERDB (ID, EMAIL, NAME, PASSWORD, DOB, USERNAME, ADDRESS) VALUES ('" + ID + "','" + email + "','" + name + "','" + password + "','" + dob + "','" + userName + "','" + address + "')";
         st.executeUpdate(query);
     }
 
     //update a student details in the database
     public void updateUser(String ID, String email, String name, String password, String dob, String userName, String address) throws SQLException {
-        String query = "UPDATE USERDB SET EMAIL = '"+email+"', NAME = '"+name+"', PASSWORD = '"+password+"', DOB = '"+dob+"', USERNAME = '"+userName+"', ADDRESS = '"+address+"' WHERE ID ="+ID;
+        String query = "UPDATE USERDB SET EMAIL = '" + email + "', NAME = '" + name + "', PASSWORD = '" + password + "', DOB = '" + dob + "', USERNAME = '" + userName + "', ADDRESS = '" + address + "' WHERE ID = '" + ID+ "'";
         st.executeUpdate(query);
     }
 
     public void deleteUser(String ID) throws SQLException {
-        String query = "DELETE FROM USERDB WHERE ID = '" + ID +"'";
+        String query = "DELETE FROM USERDB WHERE ID = '" + ID + "'";
         st.executeUpdate(query);
     }
 }

@@ -12,7 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Movie Store Online</title>
         <link rel="stylesheet" href="styles.css">
@@ -30,11 +30,11 @@
             DBManager manager = (DBManager) session.getAttribute("manager");
             int id = Integer.parseInt(request.getParameter("id"));
             Movie movie = manager.findMovie(id);
-            
+
             boolean edit = false;
             edit = Boolean.parseBoolean(request.getParameter("edit"));
-            
-            if(edit){
+
+            if (edit) {
                 String name = request.getParameter("name");
                 String genre = request.getParameter("genre");
                 String posterref = request.getParameter("posterref");
@@ -47,29 +47,34 @@
         %>    
         <div class="navbar-colored">
             <div class="navbar2">
-                <a class="navbarTxt" href="index.jsp">Main</a>
-                <a class="navbarTxt" href="catalogue.jsp">Movies</a>
-            </div>
-            <div class="navbar3">
+                <a class="navbarTxt" href="index.jsp">MAIN</a>
+                <a class="navbarTxt" href="catalogue.jsp">MOVIES</a>
+
                 <%  if (user == null) {
                 %>
-                <a class="navbarTxt3" href="register.jsp">Register</a>
-                <a class="navbarTxt3" href="login.jsp">Login</a>
+                <a class="navbarTxt3" href="register.jsp">REGISTER</a>
+                <a class="navbarTxt3" href="login.jsp">LOGIN</a>
                 <%  } else {
+                    if (user.getStaff() == true) {
                 %>
-                <p class="navbarTxt2"><%=user.getUserName()%></p>
+                <a class="navbarTxt" href="moviemanage.jsp">MANAGE MOVIES</a>
+
+                <%
+                    }
+                %>
+                <a class="navbarTxt3" href="loginhistory.jsp" class="navbarTxt3"><%=user.getUserName()%></a>
                 <form method="post" action="index.jsp" style="display: inline-block">
-                    <input type="HIDDEN" name="logout" value="invalidate"><!--idk if this does anything-->
-                    <input class="navbarTxt3" type="submit" value="Logout"><!--this was going to be a button with javascript but using a form has the same effect-->
+                    <input type="HIDDEN" name="logout" value="invalidate">
+                    <input class="navbarTxt3" type="submit" value="LOGOUT"><!--this was going to be a button with javascript but using a form has the same effect-->
                 </form>
                 <%  }
                 %>
             </div>
         </div>
-            
+
         <div class="sixth">
             <div class="seventh">
-                <% if(edit){%>
+                <% if (edit) {%>
                 <p>Movie has been updated</p>
                 <%}%>
                 <form method="post" action="editmovie.jsp">
