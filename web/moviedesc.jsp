@@ -4,6 +4,10 @@
     Author     : mougi
 --%>
 
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.Random"%>
+<%@page import="isd.model.Order"%>
 <%@page import="isd.model.Movie"%>
 <%@page import="isd.model.dao.DBManager"%>
 <%@page import="isd.model.User"%>
@@ -81,6 +85,45 @@
                     <input type="HIDDEN" name="id" value="<%=movie.getID()%>">
                     <input class="" type="submit" value="Add to Order"><!--this was going to be a button with javascript but using a form has the same effect-->
                 </form>
+                     <% 
+                                String quantity = request.getParameter("quantity");
+                            if (quantity != null && Integer.parseInt(quantity) <= movie.getStock()) { %>
+                                
+                            You have added <%=quantity%> copies into your order!
+                            
+                            <%  
+                                
+                                
+                                
+                                int key2 = (new Random()).nextInt(999999);
+                                
+                                
+                                //String orderDate = cur2.getDate();
+                                //String cusid = cur2.getCusid();
+                                String ID = "" + key2;
+                                
+                                int key = (new Random()).nextInt(99999);                   
+                                String orderID = "" + key;
+                                String cusid = "";
+                                if (user != null){ cusid = user.getId(); } else { cusid = "anonymous";}
+                                String orderDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    
+
+                                String movieID = "" + movie.getID();
+                                String movieNum = quantity;
+
+                                Order cur = new Order(orderID, orderDate, cusid);
+                                session.setAttribute("cur", cur);
+                                manager.addOrder(orderID, orderDate, cusid);
+                                manager.addMovInOrder(ID, orderID, movieID, movieNum);
+                                
+                                manager.stocktoSold(Integer.parseInt(movieID), Integer.parseInt(movieNum));
+                                
+                                
+                               }  else if (quantity != null && Integer.parseInt(quantity) > movie.getStock()){
+                               out.print("No enough stock, sorry");
+                            } 
+                            %>
             </div>
         </div>
         <div class="third">

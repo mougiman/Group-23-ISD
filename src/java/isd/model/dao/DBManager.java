@@ -2,6 +2,8 @@ package isd.model.dao;
 
 import isd.model.Login;
 import isd.model.Movie;
+import isd.model.MovieInOrder;
+import isd.model.Order;
 import isd.model.User;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
  */
 public class DBManager {
 
+    private DBConnector db;
     private Statement st;
 
     public DBManager(Connection conn) throws SQLException {
@@ -60,7 +63,9 @@ public class DBManager {
                 String dob = rs.getString(5);
                 String address = rs.getString(6);
                 Boolean staff = rs.getBoolean(8);
-                User user = new User(cUsername, email, name, password, dob, address, userID, staff);
+                int activated = rs.getInt(9);
+                String phone = rs.getString(10);
+                User user = new User(userID, email, name, password, dob, username, address, staff, activated, phone);
                 return user;
             }
         }
@@ -206,7 +211,9 @@ public class DBManager {
             String userName = rs.getString(2);
             String address = rs.getString(6);
             Boolean staff = rs.getBoolean(8);
-            User user = new User(userID, email, name, userPass, dob, userName, address, staff);
+            int activated = rs.getInt(9);
+            String phone = rs.getString(10);
+            User user = new User(userID, email, name, userPass, dob, userName, address, staff, activated, phone);
             list.add(user);
         }
         return list;
@@ -220,12 +227,208 @@ public class DBManager {
 
     //update a student details in the database
     public void updateUser(String ID, String email, String name, String password, String dob, String userName, String address) throws SQLException {
-        String query = "UPDATE USERDB SET EMAIL = '" + email + "', NAME = '" + name + "', PASSWORD = '" + password + "', DOB = '" + dob + "', USERNAME = '" + userName + "', ADDRESS = '" + address + "' WHERE ID = '" + ID+ "'";
+        String query = "UPDATE USERDB SET EMAIL = '" + email + "', NAME = '" + name + "', PASSWORD = '" + password + "', DOB = '" + dob + "', USERNAME = '" + userName + "', ADDRESS = '" + address + "' WHERE ID = '" + ID + "'";
         st.executeUpdate(query);
     }
 
     public void deleteUser(String ID) throws SQLException {
         String query = "DELETE FROM USERDB WHERE ID = '" + ID + "'";
         st.executeUpdate(query);
+    }
+
+    public void activateUser(User u) throws SQLException {
+        Statement statement = null;
+        try {
+            statement = db.openConnection().createStatement();
+            String sql = "UPDATE huser SET User_Activate = 1 WHERE User_id = " + u.getId();
+
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            statement.close();
+            db.closeConnection();
+        }
+    }
+
+    public void deactivateUser(User u) throws SQLException {
+        Statement statement = null;
+        try {
+            db = new DBConnector();
+            statement = db.openConnection().createStatement();
+            String sql = "UPDATE huser SET User_Activate = 0 WHERE User_id = " + u.getId();
+
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            statement.close();
+            db.closeConnection();
+        }
+    }
+
+        public Movie findOrderedMoive(int ID) throws SQLException {
+        //setup the select sql query string
+        String searchQueryString = "select * from MOVIES where ID=" + ID ;
+        //execute this query using the statement field
+       //add the results to a ResultSet
+         ResultSet rs = st.executeQuery(searchQueryString);
+        //search the ResultSet for a student using the parameters
+         boolean hasOrderedMoive = rs.next();
+         Movie movieFromDB = null;
+                 
+         if(hasOrderedMoive){
+         
+             int oID = Integer.parseInt(rs.getString("ID"));
+             double oPrice = Double.parseDouble(rs.getString("price")); 
+             String oName = rs.getString("name"); 
+             String oGenre = rs.getString("genre"); 
+             String oDesc = rs.getString("description");
+             String oPosterref = rs.getString("posterref");
+             int oStock = Integer.parseInt(rs.getString("stock"));
+             int oSold = Integer.parseInt(rs.getString("sold")); 
+
+             
+             movieFromDB = new Movie (oID, oName, oGenre, oDesc, oPosterref, oPrice, oStock, oSold);
+         }
+        
+         rs.close();
+        // st.close();
+         
+         return movieFromDB;
+         
+    }
+    
+    public void addOrder(String orderID, String orderDate, String cusid) throws SQLException {        
+        //code for add-operation
+        
+         String createQueryString = "insert into ORDERS" + " values ('" + orderID + "', '" + orderDate + "', '" + cusid + "')";
+         boolean recrodCreated = st.executeUpdate(createQueryString) > 0;
+         
+         if (recrodCreated){
+         System.out.println("record created");
+         }
+         else {
+         System.out.println("record not created");
+         }
+             
+    }
+    
+    public void addMovInOrder(String ID, String orderID, String movieID, String movieNum) throws SQLException {        
+        //code for add-operation
+        
+         String createQueryString = "insert into MOVIEINORDER" + " values ('" + ID + "', '" + orderID + "', '" + movieID + "', '" + movieNum + "')";
+         boolean recrodCreated = st.executeUpdate(createQueryString) > 0;
+         
+         if (recrodCreated){
+         System.out.println("record created");
+         }
+         else {
+         System.out.println("record not created");
+         }
+             
+    }
+    
+    public String findOrderID (String userID, String date) throws SQLException {        
+        //code for add-operation
+        //String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String query = "SELECT * FROM ORDERS WHERE CUSID = '" + userID + "' and ORDERDATE ='" + date + "'";
+        ResultSet rs = st.executeQuery(query);
+        boolean hasOrder = rs.next();
+        //Order orderFromDB = null;
+        
+        String oID = "";
+         if(hasOrder){
+         
+             oID = rs.getString("ID");
+             //String oDate = rs.getString("orderDate"); 
+             //String cusid = rs.getString("cusid");
+            
+             //orderFromDB = new Order (oID, oDate, cusid);
+    
+         } 
+         rs.close();
+         
+         return oID;
+               
+    }
+    public ArrayList<MovieInOrder> findOrderMovie (String cID) throws SQLException {        
+        //code for add-operation
+        ArrayList<MovieInOrder> list = new ArrayList<>();
+        //String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String query = "SELECT MOVIEINORDER.ID,MOVIEINORDER.ORDERID, MOVIEID, MOVIENUM ,ORDERS.CUSID FROM MOVIEINORDER, ORDERS WHERE cusID = '" + cID + "' AND MOVIEINORDER.ORDERID = ORDERS.ORDERID ";
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            String ID = rs.getString("ID");
+            String orderID = rs.getString("orderID");
+            String movID = rs.getString("movieID");
+            String quantity = rs.getString("movieNum");
+
+            MovieInOrder movInOr = new MovieInOrder(ID,orderID,movID, quantity);
+            list.add(movInOr);
+            
+        }
+        return list;
+    }
+        
+    public int findOrderMovie2 (String oID) throws SQLException {        
+        //code for add-operation
+        //ArrayList<MovieInOrder> list = new ArrayList<MovieInOrder>();
+        //String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String query = "SELECT * FROM MOVIEINORDER WHERE ORDERID = '" + oID + "'";
+        ResultSet rs = st.executeQuery(query);
+        boolean hasOrder = rs.next();
+        int movieID = 0;
+        if (hasOrder){
+            
+            
+
+           movieID = Integer.parseInt(rs.getString("movieid"));
+        }
+        return movieID;
+    }
+    
+    public void cancelOrder(Order cur) throws SQLException {
+        String update = " DELETE FROM ORDERS WHERE CUSID = '" + cur.getCusid() + "' ";
+        st.executeUpdate(update);
+    }
+    
+    public MovieInOrder findOrder (String orderID, String date) throws SQLException {        
+        //code for add-operation
+        //String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String query = "SELECT * FROM MOVIEINORDER WHERE ORDERID = '" + orderID + "'";
+        ResultSet rs = st.executeQuery(query);
+        boolean hasOrder = rs.next();
+        //Order orderFromDB = null;
+        
+        
+        
+        String ID="";
+        String movID="";
+        String quantity="";
+        
+        
+        if(hasOrder){
+            ID = rs.getString("ID");
+            
+            movID = rs.getString("movieID");
+            quantity = rs.getString("movieNum");
+        
+             //String oDate = rs.getString("orderDate"); 
+             //String cusid = rs.getString("cusid");
+            
+             //orderFromDB = new Order (oID, oDate, cusid);
+    
+         } 
+         MovieInOrder mio = new MovieInOrder(ID,orderID,movID,quantity);
+         
+         return mio;
+               
+    }
+    
+    public void stocktoSold(int movID, int num) throws SQLException{
+        String update = " UPDATE MOVIES SET STOCK = STOCK - " + num +", SOLD = SOLD +" + num + "WHERE ID = " + movID ;
+        st.executeUpdate(update);
     }
 }

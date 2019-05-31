@@ -27,7 +27,7 @@
                 <div class="navbar2">
                     <a class="navbarTxt" href="index.jsp">MAIN</a>
                     <a class="navbarTxt" href="catalogue.jsp">MOVIES</a>
-                
+
                     <%  if (user == null) {
                     %>
                     <a class="navbarTxt3" href="register.jsp">REGISTER</a>
@@ -36,6 +36,10 @@
                         if (user.getStaff() == true) {
                     %>
                     <a class="navbarTxt" href="moviemanage.jsp">MANAGE MOVIES</a>
+                    <form action="UserController1" method="get" style="display: inline-block">
+                        <input class="navbarTxt3" type="submit" value="MANAGE USERS"/>
+                    </form>
+                    <a class="navbarTxt" href="order.jsp">ORDER</a>
 
                     <%
                         }

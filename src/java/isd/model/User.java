@@ -35,8 +35,10 @@ public class User implements Serializable{
     @XmlElement(name = "id")
     private String id;
     private Boolean staff;
+    private int activate;
+    private String phone;
 
-    public User(String userName, String email, String name, String password, String dob, String address, String id, boolean staff) {
+    public User(String userName, String email, String name, String password, String dob, String address, String id, boolean staff, int activated, String phone) {
         this.userName = userName;
         this.email = email;
         this.name = name;
@@ -45,6 +47,8 @@ public class User implements Serializable{
         this.address = address;
         this.id = id;
         this.staff = staff;
+        this.activate = activate;
+        this.phone = phone;
     }
 
     public User() {
@@ -113,6 +117,24 @@ public class User implements Serializable{
     public void setStaff(Boolean staff) {
         this.staff = staff;
     }
+
+    public int getActivate() {
+        return activate;
+    }
+
+    public void setActivate(int activate) {
+        this.activate = activate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    
     
     
 }
